@@ -14,7 +14,10 @@ public class PlayerControl : MonoBehaviour
     
     // List to stor references to all doors.
     private List<Transform> doors = new List<Transform>();
-    
+
+    // List to stor references to all grounds.
+    private List<Transform> grounds = new List<Transform>();
+
     // player moving speed
     private float speed = 8.0f;
     
@@ -61,6 +64,13 @@ public class PlayerControl : MonoBehaviour
         {
             doors.Add(doorObject.transform);
         }
+
+        // find all grounds in the scene by tag
+        GameObject[] groundObjects = GameObject.FindGameObjectsWithTag("Ground");
+        foreach (GameObject groundObject in groundObjects)
+        {
+            grounds.Add(groundObject.transform);
+        }
         Debug.Log("Token Resource: " + resource);
         Debug.Log("Key: " + key);
         // Find the player GameObject by name.
@@ -90,8 +100,33 @@ public class PlayerControl : MonoBehaviour
     // player craft ice
     void CraftIce()
     {
+        
+        Renderer iceRenderer = Ice.GetComponent<Renderer>();
+        float iceWidth = iceRenderer.bounds.size.x;
+
+
         if ((Input.GetKeyDown(KeyCode.X)) && (resource > 0))
-        {
+        {            
+            GameObject player = GameObject.Find("Player");
+            CapsuleCollider2D playerCollider = player.GetComponent<CapsuleCollider2D>();
+            float left = transform.position.x - iceWidth / 2;
+            float right = transform.position.x + iceWidth / 2;
+            float bottom = playerCollider.bounds.min.y;
+            float up = playerCollider.bounds.max.y + iceWidth;
+          
+            foreach (Transform groundObject in grounds)
+            {
+                BoxCollider2D gCollider = groundObject.GetComponent<BoxCollider2D>();
+                float g_bottom = gCollider.bounds.min.y;
+                float g_left = gCollider.bounds.min.x;
+                float g_right = gCollider.bounds.max.x;
+                if (left > g_left && right < g_right && g_bottom > bottom && g_bottom < up)
+                {
+                    return;
+                }
+            }
+
+
 
             Vector3 spawnPosition = transform.position;
 
@@ -102,6 +137,7 @@ public class PlayerControl : MonoBehaviour
             transform.position = iceInstance.transform.position + offset;
 
             resource = resource - 1;
+      
         }
     }
     

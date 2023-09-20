@@ -7,6 +7,9 @@ TagManager:
   - Token
   - Key
   - Door
+  - Ground
+  - Ice
+  - tmp
   layers:
   - Default
   - TransparentFX
