@@ -103,6 +103,7 @@ public class PlayerControl : MonoBehaviour
         
         Renderer iceRenderer = Ice.GetComponent<Renderer>();
         float iceWidth = iceRenderer.bounds.size.x;
+        float iceHeight = iceRenderer.bounds.size.y;
 
 
         if ((Input.GetKeyDown(KeyCode.X)) && (resource > 0))
@@ -112,7 +113,7 @@ public class PlayerControl : MonoBehaviour
             float left = transform.position.x - iceWidth / 2;
             float right = transform.position.x + iceWidth / 2;
             float bottom = playerCollider.bounds.min.y;
-            float up = playerCollider.bounds.max.y + iceWidth;
+            float up = playerCollider.bounds.max.y + iceHeight;
           
             foreach (Transform groundObject in grounds)
             {
@@ -120,7 +121,7 @@ public class PlayerControl : MonoBehaviour
                 float g_bottom = gCollider.bounds.min.y;
                 float g_left = gCollider.bounds.min.x;
                 float g_right = gCollider.bounds.max.x;
-                if (left > g_left && right < g_right && g_bottom > bottom && g_bottom < up)
+                if ((left > g_left && left < g_right || right > g_left && right < g_right) && g_bottom > bottom && g_bottom < up)
                 {
                     return;
                 }
