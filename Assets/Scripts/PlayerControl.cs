@@ -33,6 +33,8 @@ public class PlayerControl : MonoBehaviour
     
     // store the horizontal input 
     private float horizontalInput;
+
+    public GameObject Ice;
     
     // Start is called before the first frame update
     void Start()
@@ -71,6 +73,7 @@ public class PlayerControl : MonoBehaviour
         GainResource();
         PickKeys();
         OpenDoor();
+        CraftIce();
     }
     
     // player move left or right by pressing horizontal keys like A D lA RA
@@ -85,7 +88,19 @@ public class PlayerControl : MonoBehaviour
     // player craft ice
     void CraftIce()
     {
-        
+        if ((Input.GetKeyDown(KeyCode.X)) && (resource > 0))
+        {
+
+            Vector3 spawnPosition = transform.position;
+
+            GameObject iceInstance = Instantiate(Ice, spawnPosition, Quaternion.identity);
+
+            Vector3 offset = Vector3.up * iceInstance.transform.localScale.y;
+
+            transform.position = iceInstance.transform.position + offset;
+
+            resource = resource - 1;
+        }
     }
     
     // player craft fire()
@@ -220,4 +235,5 @@ public class PlayerControl : MonoBehaviour
 
         return nearestToken;
     }
+
 }
