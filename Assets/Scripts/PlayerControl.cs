@@ -40,7 +40,8 @@ public class PlayerControl : MonoBehaviour
     private float horizontalInput;
 
     public GameObject Ice;
-    
+    public float iceDisappearTime = 5f; // ice disappear time
+
     // Start is called before the first frame update
     void Start()
     {   
@@ -138,10 +139,22 @@ public class PlayerControl : MonoBehaviour
             transform.position = iceInstance.transform.position + offset;
 
             resource = resource - 1;
-      
+
+            // 启动协程来定时销毁冰块
+            StartCoroutine(DestroyIceAfterTime(iceInstance));
+
         }
     }
-    
+    // 协程来定时销毁冰块
+    IEnumerator DestroyIceAfterTime(GameObject iceInstance)
+    {
+        yield return new WaitForSeconds(iceDisappearTime);
+
+        if (iceInstance != null)
+        {
+            Destroy(iceInstance);
+        }
+    }
     // player craft fire()
     void CraftFire()
     {
