@@ -9,7 +9,8 @@ TagManager:
   - Door
   - Ground
   - Ice
-  - tmp
+  - Button
+  - Enemy
   layers:
   - Default
   - TransparentFX
