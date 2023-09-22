@@ -12,11 +12,14 @@ public class PlayerControl : MonoBehaviour
     // List to store references to all keys.
     private List<Transform> keys = new List<Transform>(); 
     
-    // List to stor references to all doors.
+    // List to store references to all doors.
     private List<Transform> doors = new List<Transform>();
 
-    // List to stor references to all grounds.
+    // List to store references to all grounds.
     private List<Transform> grounds = new List<Transform>();
+    
+    // List to store references to all enemeys.
+    //private List<Transform> enemies = new List<Transform>();
 
     // player moving speed
     private float speed = 8.0f;
@@ -36,11 +39,30 @@ public class PlayerControl : MonoBehaviour
     // key counter: 0 beginning
     private int key = 0;
     
+    // to record if player is hurted
+    private bool hurted = false;
+    
+    private Renderer playerRenderer;
+    
+    // to record player's original color;
+    private Color originalColor;
+    
+    // total blink times when player hurted
+    private int blinkCount = 3;
+    
+    // the duration between two blink
+    private float blinkDuration = 0.8f;
+    
+    // blink color's alpha value
+    float blinkAlpha = 0.7f;
+    
     // store the horizontal input 
     private float horizontalInput;
 
     public GameObject Ice;
-    public float iceDisappearTime = 5f; // ice disappear time
+    
+    // ice disappear time
+    public float iceDisappearTime = 5f; 
 
     // Start is called before the first frame update
     void Start()
@@ -72,6 +94,17 @@ public class PlayerControl : MonoBehaviour
         {
             grounds.Add(groundObject.transform);
         }
+        
+        // Get player original color
+        playerRenderer = GetComponent<Renderer>();
+        originalColor = playerRenderer.material.color;
+        /*
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemyObject in enemyObjects)
+        {
+            enemies.Add(enemyObject.transform);
+        }
+        */
         Debug.Log("Token Resource: " + resource);
         Debug.Log("Key: " + key);
         // Find the player GameObject by name.
@@ -140,12 +173,12 @@ public class PlayerControl : MonoBehaviour
 
             resource = resource - 1;
 
-            // Æô¶¯Ğ­³ÌÀ´¶¨Ê±Ïú»Ù±ù¿é
+            // å¯åŠ¨åç¨‹æ¥å®šæ—¶é”€æ¯å†°å—
             StartCoroutine(DestroyIceAfterTime(iceInstance));
 
         }
     }
-    // Ğ­³ÌÀ´¶¨Ê±Ïú»Ù±ù¿é
+    // åç¨‹æ¥å®šæ—¶é”€æ¯å†°å—
     IEnumerator DestroyIceAfterTime(GameObject iceInstance)
     {
         yield return new WaitForSeconds(iceDisappearTime);
@@ -287,5 +320,85 @@ public class PlayerControl : MonoBehaviour
 
         return nearestToken;
     }
+    
+    // Function to detect collision with enemies
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Check if the collision involves an object with the "Enemy" tag.
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            if (hurted == false)
+            {
+                // Perform actions when the player collides with an enemy.
+                Debug.Log("Player collided with an enemy!" + hurted);
+                hurted = !hurted;
+                resource--;
+                Debug.Log("Token Resource: " + resource);
+                StartCoroutine(BlinkPlayerColor());
+                
+            }
+            
+        }
+        // Check if the collision involves an object with the "Enemy" tag.
+        if (collision.gameObject.CompareTag("Goal"))
+        {
+            Debug.Log("Game Ends!");
+        }
+    }
+    
+    private IEnumerator BlinkPlayerColor()
+    {
+        Debug.Log("Player is hurted!" + hurted);
+        
+        for (int i = 0; i < blinkCount; i++)
+        {
+            // Blink In (Gradual Change to Blink Color)
+            float elapsedTime = 0f;
 
+            while (elapsedTime < blinkDuration)
+            {
+                // Calculate the interpolation value (0 to 1) based on elapsed time
+                float t = elapsedTime / blinkDuration;
+
+                // Interpolate between the original color and blink color (changing alpha)
+                Color lerpedColor = Color.Lerp(originalColor, new Color(originalColor.r, originalColor.g, originalColor.b, blinkAlpha), t);
+
+                // Set the player's color with the interpolated color
+                playerRenderer.material.color = lerpedColor;
+
+                // Update elapsed time
+                elapsedTime += Time.deltaTime;
+
+                yield return null;
+            }
+
+            // Blink Out (Gradual Change Back to Original Color)
+            elapsedTime = 0f;
+
+            while (elapsedTime < blinkDuration)
+            {
+                // Calculate the interpolation value (0 to 1) based on elapsed time
+                float t = elapsedTime / blinkDuration;
+
+                // Interpolate between the blink color and original color (changing alpha)
+                Color lerpedColor = Color.Lerp(new Color(originalColor.r, originalColor.g, originalColor.b, blinkAlpha), originalColor, t);
+
+                // Set the player's color with the interpolated color
+                playerRenderer.material.color = lerpedColor;
+
+                // Update elapsed time
+                elapsedTime += Time.deltaTime;
+
+                yield return null;
+            }
+
+            // Restore the original color
+            playerRenderer.material.color = originalColor;
+
+            yield return new WaitForSeconds(0.2f); // Optional: Add a small delay between blinks
+        }
+
+        hurted = !hurted;
+    }
+    
 }

@@ -400,6 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ice: {fileID: 7972107285714885027, guid: e93821f1f5f1d4f7690632395f910fc2, type: 3}
+  iceDisappearTime: 5
 --- !u!1001 &629799436
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -961,7 +962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8683692072564492180, guid: 70001ecee36105c4e88457d47d3be7ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.36
+      value: 11.25
       objectReference: {fileID: 0}
     - target: {fileID: 8683692072564492180, guid: 70001ecee36105c4e88457d47d3be7ac, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1478,11 +1479,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7371470117527094408, guid: 84a38061b9b124b82a602dff39370f55, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.2685463
+      value: -5.77
       objectReference: {fileID: 0}
     - target: {fileID: 7371470117527094408, guid: 84a38061b9b124b82a602dff39370f55, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.2499275
+      value: 13.18
       objectReference: {fileID: 0}
     - target: {fileID: 7371470117527094408, guid: 84a38061b9b124b82a602dff39370f55, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1516,7 +1517,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -8757903248440708761, guid: 84a38061b9b124b82a602dff39370f55, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 84a38061b9b124b82a602dff39370f55, type: 3}
 --- !u!1001 &6323082653897153283
 PrefabInstance:
