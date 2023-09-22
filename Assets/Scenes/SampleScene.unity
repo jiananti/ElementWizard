@@ -672,6 +672,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6212502721701276744, guid: c48b3c84d83f046c3bf0204039d8bb10, type: 3}
+      propertyPath: m_EdgeRadius
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5552455067374795395, guid: c48b3c84d83f046c3bf0204039d8bb10, type: 3}
       propertyPath: m_RootOrder
       value: 19
@@ -1155,6 +1159,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2122415372171692803, guid: 8ebfb6703c8424251beeeb9dcdd69e3b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 642016831437848647, guid: 8ebfb6703c8424251beeeb9dcdd69e3b, type: 3}
       propertyPath: m_Name
       value: Obstacle

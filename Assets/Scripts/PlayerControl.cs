@@ -17,6 +17,7 @@ public class PlayerControl : MonoBehaviour
 
     // List to store references to all grounds.
     private List<Transform> grounds = new List<Transform>();
+    private List<Transform> obstacles = new List<Transform>();
     
     // List to store references to all enemeys.
     //private List<Transform> enemies = new List<Transform>();
@@ -223,6 +224,29 @@ public class PlayerControl : MonoBehaviour
             resource -= 1;
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Collision detected at position: " + transform.position);
+
+        if (!gameObject.CompareTag("Player"))
+        {
+            Destroy(other.gameObject);
+        }
+
+        GameObject[] obstacleObjects = GameObject.FindGameObjectsWithTag("Obstacle");
+
+        foreach (GameObject obstacleObject in obstacleObjects)
+        {
+            if (obstacleObject == gameObject)
+            {
+                Destroy(gameObject);
+                break; 
+            }
+        }
+        
+    }
+
     
     // player pick keys()
     void PickKeys()
