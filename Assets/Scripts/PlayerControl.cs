@@ -60,13 +60,17 @@ public class PlayerControl : MonoBehaviour
     private float horizontalInput;
 
     public GameObject Ice;
+    public GameObject Fire;
+    public float fireSpeed = 10f;
+    private Vector3 moveDirection ;
     
     // ice disappear time
     public float iceDisappearTime = 5f; 
 
     // Start is called before the first frame update
     void Start()
-    {   
+    { 
+
         // find all tokens in the scene by tag
         GameObject[] tokenObjects = GameObject.FindGameObjectsWithTag("Token");
         foreach (GameObject tokenObject in tokenObjects)
@@ -110,6 +114,7 @@ public class PlayerControl : MonoBehaviour
         // Find the player GameObject by name.
         //player = GameObject.Find("Player");
         //tokenInstance = Instantiate(tokenPrefab, new Vector3(10.09f, 0.96f, 0), Quaternion.identity);
+        
     }
 
     // Update is called once per frame
@@ -120,6 +125,7 @@ public class PlayerControl : MonoBehaviour
         PickKeys();
         OpenDoor();
         CraftIce();
+        CraftFire();
     }
     
     // player move left or right by pressing horizontal keys like A D lA RA
@@ -127,6 +133,11 @@ public class PlayerControl : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         Vector3 movement = new Vector3(horizontalInput, 0f, 0f) * speed * Time.deltaTime;
+        if (horizontalInput !=0)
+        {
+            moveDirection = new Vector3(horizontalInput, 0f, 0f);
+            moveDirection = moveDirection.normalized;
+        }
         transform.Translate(movement);
         
     }
@@ -191,7 +202,26 @@ public class PlayerControl : MonoBehaviour
     // player craft fire()
     void CraftFire()
     {
-        
+        if ((Input.GetKeyDown(KeyCode.Space )) && (resource > 0))
+        {
+
+            Vector3 spawnPosition = transform.position;
+
+            GameObject fireInstance = Instantiate(Fire, spawnPosition + moveDirection, Quaternion.identity);
+
+            Transform fireTransform = fireInstance.transform;
+
+            fireTransform.forward = moveDirection;
+
+            Rigidbody2D fireRigidbody2D = fireInstance.GetComponent<Rigidbody2D>();
+
+            fireRigidbody2D.velocity = moveDirection * fireSpeed;
+            Debug.Log("Fire Direction: " + moveDirection);
+
+            fireInstance.transform.eulerAngles = Vector3.zero;
+            
+            resource -= 1;
+        }
     }
     
     // player pick keys()
