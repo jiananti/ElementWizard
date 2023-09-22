@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -37,6 +38,7 @@ public class PlayerControl : MonoBehaviour
     private float horizontalInput;
 
     public GameObject Ice;
+    private Text resourceText;
     
     // Start is called before the first frame update
     void Start()
@@ -66,6 +68,7 @@ public class PlayerControl : MonoBehaviour
         // Find the player GameObject by name.
         //player = GameObject.Find("Player");
         //tokenInstance = Instantiate(tokenPrefab, new Vector3(10.09f, 0.96f, 0), Quaternion.identity);
+        resourceText = GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -76,6 +79,7 @@ public class PlayerControl : MonoBehaviour
         PickKeys();
         OpenDoor();
         CraftIce();
+        resourceText.text = "Resource: " + resource;
     }
     
     // player move left or right by pressing horizontal keys like A D lA RA
