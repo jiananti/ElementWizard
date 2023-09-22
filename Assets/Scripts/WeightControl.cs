@@ -7,6 +7,10 @@ public class WeightControl : MonoBehaviour
     private GameObject enemy;
     private Transform enemyTransform; 
     private Vector3 enemyPosition;
+    private GameObject button;
+    private Color normalColor; 
+    private Vector3 normalScale;
+    private Renderer buttonRenderer;
 
     public GameObject Enemy;
     private float totalmass = 0f;
@@ -19,6 +23,12 @@ public class WeightControl : MonoBehaviour
         enemy = GameObject.FindWithTag("Enemy");
         enemyTransform = enemy.transform; 
         enemyPosition = enemyTransform.position; 
+
+        button = GameObject.FindWithTag("Button");
+        buttonRenderer = button.GetComponentInChildren<Renderer>();
+
+        normalColor = buttonRenderer.material.color;
+        normalScale = button.transform.localScale;
     }
 
     // Update is called once per frame
@@ -36,6 +46,8 @@ public class WeightControl : MonoBehaviour
 
         if(totalmass > 2 && isenemy == 1)
         {
+            buttonRenderer.material.color = Color.yellow;
+            button.transform.localScale = new Vector3(1.0f, 0.2f, 1.0f); 
             StartCoroutine(DestroyEnemyWithDelay());
         }
 
@@ -70,6 +82,8 @@ public class WeightControl : MonoBehaviour
 
         if (totalmass < 2 && isenemy == 0)
         {
+            buttonRenderer.material.color = normalColor;
+            button.transform.localScale = normalScale;
             GameObject newEnemy = Instantiate(Enemy, enemyPosition, Quaternion.identity);
             isenemy = 1;
         }
