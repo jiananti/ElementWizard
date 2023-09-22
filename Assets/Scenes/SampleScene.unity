@@ -400,6 +400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ice: {fileID: 7972107285714885027, guid: e93821f1f5f1d4f7690632395f910fc2, type: 3}
+  Fire: {fileID: 2222407229529438561, guid: b37390db7cd7b42d288f4c42af8d582a, type: 3}
+  fireSpeed: 10
   iceDisappearTime: 5
 --- !u!1001 &629799436
 PrefabInstance:
