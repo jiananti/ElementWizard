@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -21,6 +22,7 @@ public class PlayerControl : MonoBehaviour
     
     // List to store references to all enemeys.
     //private List<Transform> enemies = new List<Transform>();
+    public UnityEngine.UI.Text resourcetext;
 
     // player moving speed
     private float speed = 8.0f;
@@ -35,7 +37,7 @@ public class PlayerControl : MonoBehaviour
     private float doorDistance = 2.0f;
     
     // resource counter: 0 beginning
-    private int resource = 0;
+    public int resource = 0;
     
     // key counter: 0 beginning
     private int key = 0;
@@ -127,6 +129,7 @@ public class PlayerControl : MonoBehaviour
         OpenDoor();
         CraftIce();
         CraftFire();
+        resourcetext.text = "Resource: " + resource;
     }
     
     // player move left or right by pressing horizontal keys like A D lA RA
