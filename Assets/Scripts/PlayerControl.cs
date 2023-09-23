@@ -362,7 +362,8 @@ public class PlayerControl : MonoBehaviour
                 // Perform actions when the player collides with an enemy.
                 Debug.Log("Player collided with an enemy!" + hurted);
                 hurted = !hurted;
-                resource--;
+                if(resource>0)
+                    resource--;
                 Debug.Log("Token Resource: " + resource);
                 StartCoroutine(BlinkPlayerColor());
                 
