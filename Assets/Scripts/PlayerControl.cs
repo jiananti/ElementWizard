@@ -228,28 +228,6 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Collision detected at position: " + transform.position);
-
-        if (!gameObject.CompareTag("Player"))
-        {
-            Destroy(other.gameObject);
-        }
-
-        GameObject[] obstacleObjects = GameObject.FindGameObjectsWithTag("Obstacle");
-
-        foreach (GameObject obstacleObject in obstacleObjects)
-        {
-            if (obstacleObject == gameObject)
-            {
-                Destroy(gameObject);
-                break; 
-            }
-        }
-        
-    }
-
     
     // player pick keys()
     void PickKeys()
