@@ -61,6 +61,7 @@ public class PlayerControl : MonoBehaviour
 
     public GameObject Ice;
     public GameObject Fire;
+    public GameObject canvas;
     public float fireSpeed = 10f;
     private Vector3 moveDirection ;
     
@@ -69,8 +70,8 @@ public class PlayerControl : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    { 
-
+    {
+        canvas.SetActive(false);
         // find all tokens in the scene by tag
         GameObject[] tokenObjects = GameObject.FindGameObjectsWithTag("Token");
         foreach (GameObject tokenObject in tokenObjects)
@@ -374,6 +375,7 @@ public class PlayerControl : MonoBehaviour
         if (collision.gameObject.CompareTag("Goal"))
         {
             Debug.Log("Game Ends!");
+            canvas.SetActive(true);
         }
     }
     
