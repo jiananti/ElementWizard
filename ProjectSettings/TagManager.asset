@@ -12,6 +12,8 @@ TagManager:
   - Button
   - Enemy
   - Goal
+  - Fire
+  - Obstacle
   layers:
   - Default
   - TransparentFX
