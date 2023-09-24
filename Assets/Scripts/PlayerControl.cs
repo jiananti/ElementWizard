@@ -272,7 +272,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (doors.Count > 0)
         {
-            // Find the nearest token to the player.
+            // Find the nearest door to the player.
             Transform nearestDoor = FindNearestDoor();
             float distance = Vector2.Distance(transform.position, nearestDoor.position);
             if (Input.GetKeyDown(KeyCode.F) && distance < doorDistance)
@@ -354,7 +354,7 @@ public class PlayerControl : MonoBehaviour
         return nearestToken;
     }
     
-    // Function to detect collision with enemies
+    // Function to detect collision with enemies and goal
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if the collision involves an object with the "Enemy" tag.
@@ -378,6 +378,7 @@ public class PlayerControl : MonoBehaviour
         {
             Debug.Log("Game Ends!");
             canvas.SetActive(true);
+            Time.timeScale = 0f;
         }
     }
     
