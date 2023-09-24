@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 
 public class PlayerControl : MonoBehaviour
@@ -58,7 +58,8 @@ public class PlayerControl : MonoBehaviour
     
     // store the horizontal input 
     private float horizontalInput;
-
+    
+    public UnityEngine.UI.Text resourcetext;
     public GameObject Ice;
     public GameObject Fire;
     public GameObject canvas;
@@ -127,6 +128,7 @@ public class PlayerControl : MonoBehaviour
         OpenDoor();
         CraftIce();
         CraftFire();
+        resourcetext.text = "Resource: " + resource;
     }
     
     // player move left or right by pressing horizontal keys like A D lA RA
