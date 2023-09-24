@@ -67,7 +67,7 @@ public class PlayerControl : MonoBehaviour
     private Vector3 moveDirection ;
     
     // ice disappear time
-    public float iceDisappearTime = 5f; 
+    public float iceDisappearTime = 9f; 
 
     // Start is called before the first frame update
     void Start()
