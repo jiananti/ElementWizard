@@ -8,6 +8,7 @@ public class RetryButton : MonoBehaviour
     {
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1f;
     }
     // Start is called before the first frame update
     void Start()
