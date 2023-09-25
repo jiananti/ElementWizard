@@ -10,11 +10,14 @@ public class FireController : MonoBehaviour
         
     // }
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
+    // Update is called once per frame
+    void Update()
+    {
+        if (transform.position.x < -20 || transform.position.x > 20)
+        {
+            Destroy(gameObject);
+        }
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collision detected at position: " + transform.position);
